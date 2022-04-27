@@ -3,10 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ToDoApp"
+        xmlns:local="clr-namespace:ToDoApp" xmlns:viewmodels="clr-namespace:ToDoApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ToDoViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="250">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="75*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Background="AliceBlue" Margin="10">
+            <TextBox Margin="10 20 10 0" Height="25" Text="{Binding NewTaskDescription, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Margin="0 15 0 0" Height="25" Content="Add" Width="80" Command="{Binding AddTaskCommand}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Background="CornflowerBlue">
+            
+        </StackPanel>
     </Grid>
 </Window>

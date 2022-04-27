@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ToDoApp.ViewModels;
 
 namespace ToDoApp
 {
@@ -10,6 +11,7 @@ namespace ToDoApp
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ToDoViewModel();
         }
     }
 }
