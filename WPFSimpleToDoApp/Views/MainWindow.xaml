@@ -12,7 +12,11 @@
             <RowDefinition Height="75*" MinHeight="120"/>
         </Grid.RowDefinitions>
         <StackPanel Margin="10">
-            <TextBox Margin="10 20 10 0" Foreground="#00204A" FontWeight="Bold" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="#F1FCFC" FontSize="15" VerticalContentAlignment="Center" MinHeight="30" TextWrapping="Wrap" MaxHeight="100" Text="{Binding NewTaskDescription, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Margin="10 20 10 0" Foreground="#00204A" FontWeight="Bold" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="#F1FCFC" FontSize="15" VerticalContentAlignment="Center" MinHeight="30" TextWrapping="Wrap" MaxHeight="100" Text="{Binding NewTaskDescription, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding AddTaskCommand}"/>
+                </TextBox.InputBindings>
+            </TextBox>
             <Button Cursor="Hand" Margin="0 15 0 0" Height="35" Content="ADD" Style="{StaticResource ActionButtonStyle}" FontWeight="Bold" FontSize="18" Width="80" Command="{Binding AddTaskCommand}"/>
         </StackPanel>
 
