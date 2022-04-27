@@ -5,18 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoApp" xmlns:viewmodels="clr-namespace:ToDoApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ToDoViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="250">
-    <Grid>
+        Title="MainWindow" Height="470" Width="260">
+    <Grid Background="#00204A">
         <Grid.RowDefinitions>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="75*"/>
+            <RowDefinition Height="Auto" MinHeight="120" MaxHeight="200"/>
+            <RowDefinition Height="75*" MinHeight="120"/>
         </Grid.RowDefinitions>
-        <StackPanel Background="AliceBlue" Margin="10">
-            <TextBox Margin="10 20 10 0" Height="25" Text="{Binding NewTaskDescription, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Margin="0 15 0 0" Height="25" Content="Add" Width="80" Command="{Binding AddTaskCommand}"/>
+        <StackPanel Margin="10">
+            <TextBox Margin="10 20 10 0" Foreground="#00204A" FontWeight="Bold" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="#F1FCFC" FontSize="15" VerticalContentAlignment="Center" MinHeight="30" TextWrapping="Wrap" MaxHeight="100" Text="{Binding NewTaskDescription, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Cursor="Hand" Margin="0 15 0 0" Height="35" Content="ADD" Style="{StaticResource ActionButtonStyle}" FontWeight="Bold" FontSize="18" Width="80" Command="{Binding AddTaskCommand}"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Background="CornflowerBlue">
-            
-        </StackPanel>
+
+        <ListView BorderThickness="0" Grid.Row="1" Background="Transparent" Height="Auto" ItemsSource="{Binding Tasks}" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Height="Auto" Width="Auto" HorizontalAlignment="Stretch" BorderThickness="2" BorderBrush="#72B5B7"  CornerRadius="3" Margin="10,0,10,10">
+                            <Grid Width="Auto" MinHeight="50" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10*" MinWidth="30" />
+                                    <ColumnDefinition Width="80*" />
+                                    <ColumnDefinition Width="10*" MinWidth="30"/>
+                                </Grid.ColumnDefinitions>
+
+                                <CheckBox Cursor="Hand" Grid.Column="0" VerticalAlignment="Center" Margin="10 0 0 0" IsChecked="{Binding IsDone}">
+                                    <CheckBox.LayoutTransform>
+                                        <ScaleTransform ScaleX="1.25" ScaleY="1.25" />
+                                    </CheckBox.LayoutTransform>
+                                </CheckBox>
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="Samsung" Text="{Binding Description}" Foreground="#40E0D0"  FontSize="15" FontWeight="Bold" TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="10"/>
+                                <Button Cursor="Hand" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource ActionButtonStyle}" Margin="0 -5 -10 0"  FontWeight="Bold" Foreground="#40E0D0" Content="X" Height="25" Width="25" Command="{Binding DataContext.RemoveTaskCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border x:Name="RootBorder" Padding="5">
+                                    <ContentPresenter/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
     </Grid>
 </Window>

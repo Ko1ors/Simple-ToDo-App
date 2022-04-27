@@ -19,19 +19,21 @@ namespace ToDoApp.ViewModels
             }
         }
 
-        // add task command
         public RelayCommand AddTaskCommand { get; set; }
+
+        public RelayCommand RemoveTaskCommand { get; set; }
 
         public ToDoViewModel()
         {
             AddTaskCommand = new RelayCommand((obj) => AddTask(), (obj) => CanAddTask());
+            RemoveTaskCommand = new RelayCommand((obj) => RemoveTask(obj as Models.Task));
         }
 
         public bool CanAddTask()
         {
             return !string.IsNullOrWhiteSpace(NewTaskDescription); 
         }
-
+      
         public void AddTask()
         {
             Tasks.Add(new Models.Task(NewTaskDescription));

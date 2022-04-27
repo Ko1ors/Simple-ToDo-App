@@ -4,6 +4,39 @@
              xmlns:local="clr-namespace:ToDoApp"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Bahnschrift SemiBold" />
+        </Style>
+        <Style TargetType="Button" x:Key="ActionButtonStyle">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#40E0D0" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border x:Name="NavButton" CornerRadius="15" Background="#00204A" BorderBrush="#40E0D0" BorderThickness="2" Height="auto"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="NavButton" Property="BorderBrush" Value="#F1FCFC"/>
+                                <Setter TargetName="NavButton" Property="Background" Value="#F1FCFC"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="NavButton" Property="Background" Value="#232423"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>
