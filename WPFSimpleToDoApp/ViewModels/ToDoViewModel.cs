@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using ToDoApp.Commands;
 using ToDoApp.DB;
 
@@ -28,18 +29,23 @@ namespace ToDoApp.ViewModels
 
         public ToDoViewModel()
         {
-            AddTaskCommand = new RelayCommand((obj) => AddTask(), (obj) => CanAddTask());
-            RemoveTaskCommand = new RelayCommand((obj) => RemoveTask(obj as Models.Task));
-            ChangeTaskStatusCommand = new RelayCommand((obj) => ChangeTaskStatus(obj as Models.Task));
-            
+            _ = Init();   
+        }
+
+        private async Task Init()
+        {
             using (var context = new ToDoContext())
             {
-                context.Database.EnsureCreated();
+                await context.Database.EnsureCreatedAsync();
                 foreach (var task in context.Tasks)
                 {
                     Tasks.Add(task);
                 }
             }
+
+            AddTaskCommand = new RelayCommand((obj) => AddTask(), (obj) => CanAddTask());
+            RemoveTaskCommand = new RelayCommand((obj) => RemoveTask(obj as Models.Task));
+            ChangeTaskStatusCommand = new RelayCommand((obj) => ChangeTaskStatus(obj as Models.Task));
         }
 
         public bool CanAddTask()
@@ -47,34 +53,34 @@ namespace ToDoApp.ViewModels
             return !string.IsNullOrWhiteSpace(NewTaskDescription); 
         }
       
-        public void AddTask()
+        public async void AddTask()
         {
             var newTask = new Models.Task(NewTaskDescription);
             using (var context = new ToDoContext())
             {
                 context.Tasks.Add(newTask);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
             Tasks.Add(newTask);
             NewTaskDescription = string.Empty;
         }
 
-        public void RemoveTask(Models.Task task)
+        public async void RemoveTask(Models.Task task)
         {
             using (var context = new ToDoContext())
             {
                 context.Tasks.Remove(task);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
             Tasks.Remove(task);
         }
 
-        public void ChangeTaskStatus(Models.Task task)
+        public async void ChangeTaskStatus(Models.Task task)
         {
             using (var context = new ToDoContext())
             {
                 context.Update(task);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 
