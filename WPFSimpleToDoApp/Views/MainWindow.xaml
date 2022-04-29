@@ -58,7 +58,7 @@
                             <KeyBinding Key="Enter" Command="{Binding AddTaskCommand}"/>
                         </TextBox.InputBindings>
                     </TextBox>
-                    <Button Cursor="Hand" Margin="0 15 0 0" Height="35" Content="ADD" Style="{StaticResource ActionButtonStyle}" FontWeight="Bold" FontSize="18" Width="80" Command="{Binding AddTaskCommand}"/>
+                    <Button Margin="0 15 0 0" Height="35" Content="ADD" Style="{StaticResource ActionButtonStyle}" FontWeight="Bold" FontSize="18" Width="80" Command="{Binding AddTaskCommand}"/>
                 </StackPanel>
 
                 <ListView BorderThickness="0" Grid.Row="1" Background="Transparent" Height="Auto" ItemsSource="{Binding Tasks}" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -77,13 +77,13 @@
                                             <ColumnDefinition Width="10*" MinWidth="30"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <CheckBox Cursor="Hand" Grid.Column="0" VerticalAlignment="Center" Margin="10 0 0 0" IsChecked="{Binding IsDone}" Command="{Binding DataContext.ChangeTaskStatusCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}">
+                                        <CheckBox Grid.Column="0" VerticalAlignment="Center" Margin="10 0 0 0" IsChecked="{Binding IsDone}" Command="{Binding DataContext.ChangeTaskStatusCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}">
                                             <CheckBox.LayoutTransform>
                                                 <ScaleTransform ScaleX="1.25" ScaleY="1.25" />
                                             </CheckBox.LayoutTransform>
                                         </CheckBox>
                                         <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="Samsung" Text="{Binding Description}" Foreground="#40E0D0"  FontSize="15" FontWeight="Bold" TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="10"/>
-                                        <Button Cursor="Hand" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource ActionButtonStyle}" Margin="0 -5 -10 0"  FontWeight="Bold" Foreground="#40E0D0" Content="X" Height="25" Width="25" Command="{Binding DataContext.RemoveTaskCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}"/>
+                                        <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource ActionButtonStyle}" Margin="0 -5 -10 0"  FontWeight="Bold" Foreground="#40E0D0" Content="X" Height="25" Width="25" Command="{Binding DataContext.RemoveTaskCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}"/>
                                     </Grid>
                                 </Border>
                             </Grid>

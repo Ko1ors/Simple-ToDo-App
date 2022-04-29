@@ -10,6 +10,7 @@
         <Style TargetType="Button" x:Key="ActionButtonStyle">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="#40E0D0" />
+            <Setter Property="Cursor" Value="Hand" />
 
             <Setter Property="Template">
                 <Setter.Value>
@@ -20,7 +21,7 @@
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="NavButton" Property="BorderBrush" Value="#F1FCFC"/>
+                                <Setter TargetName="NavButton" Property="BorderBrush" Value="SlateGray"/>
                                 <Setter TargetName="NavButton" Property="Background" Value="#F1FCFC"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
