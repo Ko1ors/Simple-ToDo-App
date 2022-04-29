@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using ToDoApp.Commands;
 using ToDoApp.DB;
@@ -27,9 +30,13 @@ namespace ToDoApp.ViewModels
 
         public RelayCommand ChangeTaskStatusCommand { get; set; }
 
+        public RelayCommand OpenFiltersCommand { get; set; }
+
+        public Views.FiltersWindow? FiltersWindow { get; set; }
+
         public ToDoViewModel()
         {
-            _ = Init();   
+            _ = Init();
         }
 
         private async Task Init()
@@ -37,22 +44,21 @@ namespace ToDoApp.ViewModels
             using (var context = new ToDoContext())
             {
                 await context.Database.EnsureCreatedAsync();
-                foreach (var task in context.Tasks)
-                {
-                    Tasks.Add(task);
-                }
             }
+
+            RefreshTasks();
 
             AddTaskCommand = new RelayCommand((obj) => AddTask(), (obj) => CanAddTask());
             RemoveTaskCommand = new RelayCommand((obj) => RemoveTask(obj as Models.Task));
             ChangeTaskStatusCommand = new RelayCommand((obj) => ChangeTaskStatus(obj as Models.Task));
+            OpenFiltersCommand = new RelayCommand((obj) => OpenFilters(), (obj) => CanOpenFilters);
         }
 
         public bool CanAddTask()
         {
-            return !string.IsNullOrWhiteSpace(NewTaskDescription); 
+            return !string.IsNullOrWhiteSpace(NewTaskDescription);
         }
-      
+
         public async void AddTask()
         {
             var newTask = new Models.Task(NewTaskDescription);
@@ -61,7 +67,7 @@ namespace ToDoApp.ViewModels
                 context.Tasks.Add(newTask);
                 await context.SaveChangesAsync();
             }
-            Tasks.Add(newTask);
+            RefreshTasks();
             NewTaskDescription = string.Empty;
         }
 
@@ -74,6 +80,41 @@ namespace ToDoApp.ViewModels
             }
             Tasks.Remove(task);
         }
+
+        public bool CanOpenFilters => FiltersWindow is null;
+
+        private void OpenFilters()
+        {
+            FiltersWindow = new Views.FiltersWindow();
+            FiltersWindow.OnFiltersChanged(RefreshTasks);
+            FiltersWindow.Closed += (sender, args) => FiltersWindow = null;
+            FiltersWindow.Show();
+        }
+
+        private void RefreshTasks(object? sender, EventArgs e)
+        {
+            RefreshTasks();
+        }
+
+        private void RefreshTasks()
+        {
+            using (var context = new ToDoContext())
+            {
+                Tasks.Clear();
+                var filters = context.TaskFilters.FirstOrDefault();
+                List<Models.Task> tasks;
+                if (filters is null)
+                    tasks = context.Tasks.ToList();
+                else if (filters.Ascending)
+                    tasks = context.Tasks.OrderByProperty(filters.OrderBy).ToList();
+                else
+                    tasks = context.Tasks.OrderByPropertyDescending(filters.OrderBy).ToList();
+
+                foreach (var task in tasks)
+                    Tasks.Add(task);
+            }
+        }
+
 
         public async void ChangeTaskStatus(Models.Task task)
         {

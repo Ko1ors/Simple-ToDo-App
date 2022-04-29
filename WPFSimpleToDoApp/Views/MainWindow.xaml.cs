@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using ToDoApp.ViewModels;
 
-namespace ToDoApp
+namespace ToDoApp.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

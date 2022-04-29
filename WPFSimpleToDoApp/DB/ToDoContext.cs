@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ToDoApp.DB
 {
@@ -11,9 +6,11 @@ namespace ToDoApp.DB
     {
         public DbSet<Models.Task> Tasks { get; set; }
 
+        public DbSet<Models.TaskFilters> TaskFilters { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=todo.db");         
+            optionsBuilder.UseSqlite("Data Source=todo.db");
         }
     }
 }
