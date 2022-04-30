@@ -69,7 +69,7 @@
                     </Grid>
                 </StackPanel>
 
-                <ListView BorderThickness="0" Grid.Row="1" Background="Transparent" Height="Auto" ItemsSource="{Binding Tasks}" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView BorderThickness="0" Grid.Row="1" Background="Transparent" Height="Auto" ItemsSource="{Binding TasksCollectionView}" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>

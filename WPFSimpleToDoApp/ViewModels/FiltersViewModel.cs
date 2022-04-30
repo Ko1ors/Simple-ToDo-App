@@ -18,11 +18,13 @@ namespace ToDoApp.ViewModels
 
         public List<string> OrderByOptions { get; set; }
 
+        public List<TaskStatusType> TaskTypeOptions { get; set; }
+
         public string OrderIcon => Filters.Ascending ? "ArrowCircleUp" : "ArrowCircleDown";
 
         public RelayCommand ChangeOrderCommand { get; set; }
         
-        public RelayCommand ChangeOrderByCommand { get; set; }
+        public RelayCommand UpdateFiltersCommand { get; set; }
 
         public FiltersViewModel()
         {
@@ -32,6 +34,7 @@ namespace ToDoApp.ViewModels
         private async Task Init()
         {
             OrderByOptions = Models.Task.GetFilterableProperties().ToList();
+            TaskTypeOptions = Enum.GetValues(typeof(TaskStatusType)).Cast<TaskStatusType>().ToList();
             using (var context = new ToDoContext())
             {
                 await context.Database.EnsureCreatedAsync();
@@ -46,7 +49,7 @@ namespace ToDoApp.ViewModels
             }
 
             ChangeOrderCommand = new RelayCommand((obj)=> ChangeOrder());
-            ChangeOrderByCommand = new RelayCommand((obj) => UpdateFilters());
+            UpdateFiltersCommand = new RelayCommand((obj) => UpdateFilters());
         }
 
         private void ChangeOrder()
