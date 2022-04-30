@@ -44,8 +44,8 @@
             <DockPanel Height="Auto" Background="#00204A">
                 <TextBlock Text="To Do App" Foreground="#40E0D0" Margin="5 5 5 0" FontSize="15" VerticalAlignment="Center" FontWeight="Bold"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-                    <Button Content="🗕" Style="{StaticResource ActionButtonStyle}" VerticalContentAlignment="Top" VerticalAlignment="Top" Width="25" Height="25" Click="MinimizeButton_Click" Background="{x:Null}" Margin="0 5 5 0" WindowChrome.IsHitTestVisibleInChrome="True" Foreground="#40E0D0" FontWeight="Bold" FontSize="15" BorderBrush="{x:Null}" />
-                    <Button Content="✕" Style="{StaticResource ActionButtonStyle}" VerticalAlignment="Top" Width="25" Height="25" Click="ExitButton_Click" Background="{x:Null}" Margin="0 5 5 0" WindowChrome.IsHitTestVisibleInChrome="True" Foreground="#40E0D0" FontWeight="Bold" FontSize="15" BorderBrush="{x:Null}" />
+                    <Button fa:Awesome.Content="WindowMinimize" Style="{StaticResource ActionButtonStyle}" VerticalContentAlignment="Top" VerticalAlignment="Top" Width="25" Height="25" Click="MinimizeButton_Click" Background="{x:Null}" Margin="0 5 5 0" WindowChrome.IsHitTestVisibleInChrome="True" Foreground="#40E0D0" FontWeight="Bold" FontSize="12" BorderBrush="{x:Null}" />
+                    <Button fa:Awesome.Content="Times" Style="{StaticResource ActionButtonStyle}" VerticalAlignment="Top" Width="25" Height="25" Click="ExitButton_Click" Background="{x:Null}" Margin="0 5 5 0" WindowChrome.IsHitTestVisibleInChrome="True" Foreground="#40E0D0" FontWeight="Bold" FontSize="15" BorderBrush="{x:Null}" />
                 </StackPanel>
             </DockPanel>
             <Grid Grid.Row="1" Background="#00204A">
@@ -64,7 +64,7 @@
                             <ColumnDefinition Width="10*"/>
                             <ColumnDefinition Width="25"/>
                         </Grid.ColumnDefinitions>
-                        <Button VerticalAlignment="Center"  Height="35" Content="ADD" Style="{StaticResource ActionButtonStyle}" FontWeight="Bold" FontSize="18" Width="80" Command="{Binding AddTaskCommand}"/>
+                        <Button VerticalAlignment="Center" Margin="25 0 0 0" Height="35" Content="ADD" Style="{StaticResource ActionButtonStyle}" FontWeight="Bold" FontSize="18" Width="80" Command="{Binding AddTaskCommand}"/>
                         <Button Grid.Column="1" HorizontalAlignment="Right" fa:Awesome.Content="Filter" Height="30" Width="20" Style="{StaticResource FilterButtonStyle}" Command="{Binding OpenFiltersCommand}"/>
                     </Grid>
                 </StackPanel>
@@ -91,7 +91,7 @@
                                             </CheckBox.LayoutTransform>
                                         </CheckBox>
                                         <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="Samsung" Text="{Binding Description}" Foreground="#40E0D0"  FontSize="15" FontWeight="Bold" TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="10"/>
-                                        <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource ActionButtonStyle}" Margin="0 -5 -10 0"  FontWeight="Bold" Foreground="#40E0D0" Content="X" Height="25" Width="25" Command="{Binding DataContext.RemoveTaskCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}"/>
+                                        <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource ActionButtonStyle}" Margin="0 -5 -10 0"  FontWeight="Bold" Foreground="#40E0D0" fa:Awesome.Content="Times" Height="25" Width="25" Command="{Binding DataContext.RemoveTaskCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}"/>
                                     </Grid>
                                 </Border>
                             </Grid>
