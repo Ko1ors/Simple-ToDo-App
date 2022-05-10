@@ -68,7 +68,9 @@
                         <Button Grid.Column="1" HorizontalAlignment="Right" fa:Awesome.Content="Filter" Height="30" Width="20" Style="{StaticResource FilterButtonStyle}" Command="{Binding OpenFiltersCommand}"/>
                     </Grid>
                 </StackPanel>
-
+                <StackPanel Visibility="{Binding LogoVisibility}" Grid.Row="1" VerticalAlignment="Center">
+                    <Image Source="/images/logo.png" Width="150"/>
+                </StackPanel>
                 <ListView BorderThickness="0" Grid.Row="1" Background="Transparent" Height="Auto" ItemsSource="{Binding TasksCollectionView}" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.ItemTemplate>
                         <DataTemplate>

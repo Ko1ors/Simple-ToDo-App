@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using ToDoApp.Commands;
 using ToDoApp.DB;
@@ -30,6 +31,8 @@ namespace ToDoApp.ViewModels
                 OnPropertyChanged("NewTaskDescription");
             }
         }
+
+        public Visibility LogoVisibility => TasksCollectionView.IsEmpty ? Visibility.Visible : Visibility.Collapsed;
 
         public RelayCommand AddTaskCommand { get; set; }
 
@@ -91,6 +94,7 @@ namespace ToDoApp.ViewModels
                 await context.SaveChangesAsync();
             }
             Tasks.Remove(task);
+            OnPropertyChanged("LogoVisibility");
         }
 
         public bool CanOpenFilters => FiltersWindow is null;
@@ -132,6 +136,7 @@ namespace ToDoApp.ViewModels
                     return false;
                 };
             }
+            OnPropertyChanged("LogoVisibility");
         }
 
 
